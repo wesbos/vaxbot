@@ -1,0 +1,19 @@
+{
+  "name": "vaccine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "type": "module",
+  "author": "Wes Bos",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^9.0.2",
+    "isomorphic-fetch": "^3.0.0",
+    "node-cron": "^3.0.0",
+    "node-telegram-bot-api": "^0.53.0",
+    "set-cookie-parser": "^2.4.8"
+  }
+}
