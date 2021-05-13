@@ -19,6 +19,7 @@ async function checkForAppointments(location) {
     // console.log(res);
     const reply = await res.json();
     if (reply.data?.length && reply.data[0].available) {
+      console.log('GOT ONE!!!')
       await logAvailableVaccine(reply.data[0]);
     }
   } else {
@@ -50,3 +51,5 @@ export async function checkWalmart() {
     console.log(colors.green('Done Location:'), locationInfo.loc_name);
   }
 }
+
+checkWalmart();

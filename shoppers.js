@@ -30,6 +30,3 @@ ${store.postalCode}
     }
   }
 }
-
-
-
