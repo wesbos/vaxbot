@@ -1,4 +1,6 @@
 antivaxers
+
+deploy.sh
 # Logs
 logs
 *.log

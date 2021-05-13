@@ -24,7 +24,7 @@ const locations = [
 ];
 
 
-async function checkCostco(store) {
+async function checkStore(store) {
   const res = await fetch(`https://apipharmacy.telehippo.com/api/c/${store.storeId}/graphql`, {
     "headers": {
       "content-type": "application/json",
@@ -53,20 +53,24 @@ async function checkCostco(store) {
     return data;
 }
 
-for(const store of locations) {
-  console.log(colors.yellow(`Checking ${store.name}`));
-  const {data} = await checkCostco(store);
+export async function checkCostco() {
+  for (const store of locations) {
+    console.log(colors.yellow(`Checking ${store.name}`));
+    const { data } = await checkStore(store);
 
-  if (data.searchBookableWorkTimes.nextAvailableDate) {
-    // there is an open date!
-    const message = `
+    if (data.searchBookableWorkTimes.nextAvailableDate) {
+      // there is an open date!
+      const message = `
 💉 ${store.name} Costco Appointment!
 ${data.searchBookableWorkTimes.nextAvailableDate || ''}
 Book Online: https://b.telehippo.com/o/${store.hippoId}
 `;
-    sendMessage(message, { dev: true });
+      sendMessage(message, { dev: true });
+    }
   }
 }
+
+
 
 
 // Notes
