@@ -25,6 +25,7 @@ const locations = [
 
 
 async function checkStore(store) {
+  const today = new Date();
   const res = await fetch(`https://apipharmacy.telehippo.com/api/c/${store.storeId}/graphql`, {
     "headers": {
       "content-type": "application/json",
@@ -36,7 +37,7 @@ async function checkStore(store) {
         searchBookableWorkTimes(
           data: {
             retailerId: ${store.storeId}
-            startDate: "2021-05-13 04:00:00"
+            startDate: "2021-${today.getMonth().padStart(2, '0')}-${today.getDate().padStart(2, '0')} 04:00:00"
             endDate: "2022-08-24 03:59:59"
             # day: 4
             serviceId: ${store.serviceId}
@@ -65,7 +66,7 @@ export async function checkCostco() {
 ${data.searchBookableWorkTimes.nextAvailableDate || ''}
 Book Online: https://b.telehippo.com/o/${store.hippoId}
 `;
-      sendMessage(message, { dev: true });
+      sendMessage(message);
     }
   }
 }
