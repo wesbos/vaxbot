@@ -20,9 +20,8 @@ export async function checkShoppers() {
 
   const { results } = await res.json();
   for(const store of results) {
-    // find existing notification
-    const existingNotification = notifications.find(notif => notif.storeNumber === store.storeNumber);
-    const hasAlreadyAlerted = existingNotification && (Date.now() - existingNotification.date < 7200000); // 2 hours
+    // find existing notification in the last 24 hours
+    const existingNotification = notifications.find(notif => (notif.storeNumber === store.storeNumber && (Date.now() - (notif.date < 86400000))));
     if (store.FlusShotAvailableNow) {
       const toLog = `
 💉 Shoppers: ${store.name} - ${store.storeNumber}
@@ -32,10 +31,10 @@ ${store.address}
 ${store.postalCode}
       `;
       // Note that we just Notified about it
-      if (!hasAlreadyAlerted) {
+      if (!existingNotification) {
         notifications.push({ storeNumber: store.storeNumber, date: Date.now() });
         console.log(toLog)
-        await sendMessage(toLog, { dev: true });
+        await sendMessage(toLog);
       } else {
         console.log('Already Notified! Skipping', store.storeNumber);
       }

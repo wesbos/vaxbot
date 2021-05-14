@@ -51,3 +51,4 @@ export async function checkWalmart() {
     console.log(colors.green('Done Location:'), locationInfo.loc_name);
   }
 }
+
