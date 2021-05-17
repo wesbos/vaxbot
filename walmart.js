@@ -5,6 +5,7 @@ import {provinces} from './fetch.js';
 import { findLocationById, locations } from './locations.js';
 
 const province = provinces.ON;
+let notifications = [];
 
 async function checkForAppointments(location) {
   const url = `https://portal.healthmyself.net/${province.slug}/guest/booking/${province.appointmentType}/schedules?locId=${location}`
@@ -20,7 +21,15 @@ async function checkForAppointments(location) {
     const reply = await res.json();
     if (reply.data?.length && reply.data[0].available) {
       console.log('GOT ONE!!!')
-      await logAvailableVaccine(reply.data[0]);
+      const existingNotification = notifications.find(notif => (notif.storeNumber === store.storeNumber && (Date.now() - (notif.date < 86400000))));
+
+      if (!existingNotification) {
+        notifications.push({ storeNumber: store.address, date: Date.now() });
+        console.log(toLog)
+        await logAvailableVaccine(reply.data[0]);
+      } else {
+        console.log('Already Notified! Skipping', store.address);
+      }
     }
   } else {
     res.status !== 200 && console.log(res.status, res.statusText, res.url);
