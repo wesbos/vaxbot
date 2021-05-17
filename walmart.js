@@ -5,7 +5,10 @@ import {provinces} from './fetch.js';
 import { findLocationById, locations } from './locations.js';
 
 const province = provinces.ON;
-let notifications = [];
+
+let notifications = [
+  { storeNumber: '1115 Barton Street East', date: 1621259701591 }
+];
 
 async function checkForAppointments(location) {
   const url = `https://portal.healthmyself.net/${province.slug}/guest/booking/${province.appointmentType}/schedules?locId=${location}`

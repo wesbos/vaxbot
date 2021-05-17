@@ -2,7 +2,11 @@ import fetch from 'isomorphic-fetch';
 import { sendMessage } from './botty.js';
 
 // Cache notifications
-let notifications = [];
+let notifications = [
+  { storeNumber: 1233, date: 1621259701591 },
+  { storeNumber: 707, date: 1621259701591 },
+  { storeNumber: 865, date: 1621259701591 },
+];
 
 const lat = 43.259768;
 const lng = -79.872597;
